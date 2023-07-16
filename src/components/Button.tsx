@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import classnames from 'classnames';
-import './index.css';
+import '../index.css';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
