@@ -11,12 +11,16 @@ interface Props {
 
 function Accordion({ items }: Props) {
   const [expandedIndex, setExpandedIndex] = useState(0);
+
+  const handleClick = (index: number) => {
+    setExpandedIndex(index);
+  }
   
   const renderedItems = items.map((item, index) => {
     const isExpanded = expandedIndex === index;
     return (
       <div key={item.id}>
-        <h3 className="accordion__header" onClick={() => setExpandedIndex(index)}>{item.label}</h3>
+        <h3 className="accordion__header" onClick={() => handleClick(index)}>{item.label}</h3>
         {isExpanded && <p className="accordion__innerContent">{item.content}</p>}
       </div>
     );
