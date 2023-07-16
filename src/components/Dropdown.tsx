@@ -1,24 +1,25 @@
 import { useState } from "react";
 
-type Option = {
+export type Option = {
   label: string;
   value: string;
 };
 
 interface Props {
   options: Option[];
+	onChange: (value: Option | null) => void;
+	value: Option | null;
 }
 
-function Dropdown({ options }: Props) {
+function Dropdown({ options, value, onChange }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, SetselectedOption] = useState("Select...");
 
   const handleClick = () => {
     setIsOpen((currentValue) => !currentValue);
   };
 
-  const handleOptionClick = (selectedOption: Option) => {
-    SetselectedOption(selectedOption.label);
+  const handleOptionClick = (selectedOption: Option | null) => {
+		onChange(selectedOption);
     setIsOpen(false);
   };
 
@@ -31,7 +32,7 @@ function Dropdown({ options }: Props) {
   });
   return (
     <div>
-      <div onClick={handleClick}>{selectedOption}</div>
+      <div onClick={handleClick}>{value?.label || 'Select...'}</div>
       {isOpen && <div>{renderOptions}</div>}
     </div>
   );
