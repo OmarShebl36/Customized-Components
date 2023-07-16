@@ -1,18 +1,18 @@
 type Option = {
-    label: string;
-    value: string;
-}
+  label: string;
+  value: string;
+};
 
 interface Props {
-    options: Option[];
+  options: Option[];
 }
 
-function Dropdown({options}: Props) {
-    return ( 
-        <div>
-            <h1>Dropdown</h1>
-        </div>
-    );
+function Dropdown({ options }: Props) {
+  return (
+    <div>
+      <h1>Dropdown</h1>
+    </div>
+  );
 }
 
 export default Dropdown;
