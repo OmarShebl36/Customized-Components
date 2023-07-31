@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../index.css";
 import { GoChevronDown } from "react-icons/go";
 import Panel from "./Panel";
@@ -17,6 +17,25 @@ interface Props {
 
 function Dropdown({ options, value, onChange }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const divEl = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (event: any) => {
+      if (!divEl.current) return;
+
+      if (!divEl.current.contains(event.target))
+        setIsOpen(false);
+    }
+
+    // true is used to give react the time to apply the changes before the event takes action.
+    document.addEventListener("click", handler, true); 
+
+    const cleanup = () => {
+      document.removeEventListener("click", handler);
+    };
+
+    return cleanup();
+  }, [])
 
   const handleClick = () => {
     setIsOpen((currentValue) => !currentValue);
@@ -40,7 +59,7 @@ function Dropdown({ options, value, onChange }: Props) {
   });
 
   return (
-    <div className="w-48 relative">
+    <div ref={divEl} className="w-48 relative">
       <Panel
         className="flex justify-between items-center cursor-pointer"
         onClick={handleClick}
