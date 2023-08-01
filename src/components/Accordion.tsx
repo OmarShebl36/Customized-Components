@@ -17,7 +17,7 @@ function Accordion({ items }: Props) {
   const handleClick = (index: number) => {
     setExpandedIndex((currentExpandedIndex) => {
       if (currentExpandedIndex === index) return -1;
-      
+
       return index;
     });
   };

@@ -3,7 +3,6 @@ import "../index.css";
 import { GoChevronDown } from "react-icons/go";
 import Panel from "./Panel";
 
-
 export type Option = {
   label: string;
   value: string;
@@ -23,19 +22,18 @@ function Dropdown({ options, value, onChange }: Props) {
     const handler = (event: any) => {
       if (!divEl.current) return;
 
-      if (!divEl.current.contains(event.target))
-        setIsOpen(false);
-    }
+      if (!divEl.current.contains(event.target)) setIsOpen(false);
+    };
 
     // true is used to give react the time to apply the changes before the event takes action.
-    document.addEventListener("click", handler, true); 
+    document.addEventListener("click", handler, true);
 
     const cleanup = () => {
       document.removeEventListener("click", handler);
     };
 
     return cleanup();
-  }, [])
+  }, []);
 
   const handleClick = () => {
     setIsOpen((currentValue) => !currentValue);
@@ -65,13 +63,9 @@ function Dropdown({ options, value, onChange }: Props) {
         onClick={handleClick}
       >
         {value?.label || "Select..."}
-				<GoChevronDown className="text-lg"/>
+        <GoChevronDown className="text-lg" />
       </Panel>
-      {isOpen && (
-        <Panel className="absolute top-full">
-          {renderOptions}
-        </Panel>
-      )}
+      {isOpen && <Panel className="absolute top-full">{renderOptions}</Panel>}
     </div>
   );
 }

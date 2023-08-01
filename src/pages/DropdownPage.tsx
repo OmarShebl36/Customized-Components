@@ -9,11 +9,13 @@ function DropdownPage() {
   };
 
   const options = [
-    { label: 'Red', value: 'Red' },
-    { label: 'Green', value: 'Green`' },
-    { label: 'Blue', value: 'Blue' },
-  ]
-  return <Dropdown options={options} value={selection} onChange={handleSelect} />;
+    { label: "Red", value: "Red" },
+    { label: "Green", value: "Green`" },
+    { label: "Blue", value: "Blue" },
+  ];
+  return (
+    <Dropdown options={options} value={selection} onChange={handleSelect} />
+  );
 }
 
 export default DropdownPage;

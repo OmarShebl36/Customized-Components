@@ -23,7 +23,11 @@ function Sidebar() {
       </Link>
     );
   });
-  return <div className="sticky top-0 overflow-y-scroll flex flex-col">{renderedLinks}</div>;
+  return (
+    <div className="sticky top-0 overflow-y-scroll flex flex-col">
+      {renderedLinks}
+    </div>
+  );
 }
 
 export default Sidebar;
