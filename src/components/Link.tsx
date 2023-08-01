@@ -6,11 +6,17 @@ interface Props {
   to: string;
   children: ReactNode;
   additionalClassNames?: string;
+  activeClassNames?: string;
 }
 
-function Link({ to, children, additionalClassNames }: Props) {
-  const classes = classNames("text-blue-500", additionalClassNames);
-  const { navigate } = useNavigation();
+function Link({ to, children, additionalClassNames, activeClassNames }: Props) {
+  const { navigate, currentPath } = useNavigation();
+  const classes = classNames(
+    "text-blue-500",
+    additionalClassNames,
+    currentPath === to && activeClassNames
+  );
+
   const handleClick = (event: React.MouseEvent) => {
     if (event.metaKey || event.ctrlKey) {
       return;
