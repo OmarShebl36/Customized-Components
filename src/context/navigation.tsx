@@ -1,6 +1,11 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 
-const NavigationContext = createContext({});
+interface ValueType {
+  navigate: (to: string) => void;
+  currentPath: string;
+}
+
+const NavigationContext = createContext({} as ValueType);
 
 interface NavigationProps {
   children: ReactNode;
