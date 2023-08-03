@@ -1,16 +1,9 @@
-import { ReactNode } from "react";
-import Table from "../components/Table";
+import Table, { Config } from "../components/Table";
 
 export interface Fruit {
     name: string;
     color: string;
     score: number;
-}
-
-export interface Config {
-    label: string;
-    render: (rowData: any) => ReactNode;
-    header?: () => ReactNode;
 }
 
 function TablePage() {

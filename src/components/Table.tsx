@@ -1,33 +1,46 @@
-import { getModeForResolutionAtIndex } from "typescript";
+import { Fragment, ReactNode } from "react";
 
-interface Props {
-    data: {
-        name: string;
-        color: string;
-        score: number;
-    }[];
+export interface Config {
+    label: string;
+    render: (rowData: any) => ReactNode;
+    header?: () => ReactNode;
 }
 
-function Table({ data }: Props) {
-    const renderedRows = data.map((fruit) => {
-        return (
-            <tr key={fruit.name} className='border-b'>
-                <td className='p-3'>{fruit.name}</td>
-                <td className='p-3'>
-                    <div className={`p-3 m-2 ${fruit.color}`} />
+interface Props {
+    data: any;
+    config: Config[];
+    keyFn: (key: any) => string | number;
+}
+
+function Table({ data, config, keyFn }: Props) {
+    const renderedRows = data.map((rowData: any) => {
+        const renderedCells = config.map((column) => {
+            return (
+                <td className='p-2' key={column.label}>
+                    {column.render(rowData)}
                 </td>
-                <td className='p-3'>{fruit.score}</td>
+            );
+        });
+
+        return (
+            <tr key={keyFn(rowData)} className='border-b'>
+                {renderedCells}
             </tr>
         );
     });
+
+    const renderedHeaders = config.map((column) => {
+        if (column.header) {
+            return <Fragment key={column.label}>{column.header()}</Fragment>;
+        }
+
+        return <th key={column.label}>{column.label}</th>;
+    });
+
     return (
         <table className='table-auto border-spacing-2'>
             <thead>
-                <tr className='border-b-2'>
-                    <th>Fruit</th>
-                    <th>Color</th>
-                    <th>Score</th>
-                </tr>
+                <tr className='border-b-2'>{renderedHeaders}</tr>
             </thead>
             <tbody>{renderedRows}</tbody>
         </table>
