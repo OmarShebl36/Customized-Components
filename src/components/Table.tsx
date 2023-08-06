@@ -39,11 +39,11 @@ function Table({ data, config, keyFn }: TableProps) {
     });
 
     return (
-        <table className='table-auto border-spacing-2'>
+        <table className='table-auto'>
             <thead>
                 <tr className='border-b-2'>{renderedHeaders}</tr>
             </thead>
-            <tbody>{renderedRows}</tbody>
+            <tbody className='text-center'>{renderedRows}</tbody>
         </table>
     );
 }
