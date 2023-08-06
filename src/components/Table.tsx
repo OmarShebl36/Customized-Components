@@ -4,15 +4,16 @@ export interface Config {
     label: string;
     render: (rowData: any) => ReactNode;
     header?: () => ReactNode;
+    sortValue?: (rowData: any) => string | number
 }
 
-interface Props {
+export interface TableProps {
     data: any;
     config: Config[];
     keyFn: (key: any) => string | number;
 }
 
-function Table({ data, config, keyFn }: Props) {
+function Table({ data, config, keyFn }: TableProps) {
     const renderedRows = data.map((rowData: any) => {
         const renderedCells = config.map((column) => {
             return (
