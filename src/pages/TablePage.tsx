@@ -1,4 +1,5 @@
-import Table, { Config } from "../components/Table";
+import SortableTable from "../components/SortableTable";
+import { Config } from "../components/Table";
 
 export interface Fruit {
     name: string;
@@ -31,14 +32,22 @@ function TablePage() {
     ];
 
     const config: Config[] = [
-        { label: "Name", render: (fruit: Fruit) => fruit.name },
+        {
+            label: "Name",
+            render: (fruit: Fruit) => fruit.name,
+            sortValue: (fruit: Fruit) => fruit.name,
+        },
         {
             label: "Color",
             render: (fruit: Fruit) => (
                 <div className={`m-2 p-3 ${fruit.color}`}></div>
             ),
         },
-        { label: "Score", render: (fruit: Fruit) => fruit.score },
+        {
+            label: "Score",
+            render: (fruit: Fruit) => fruit.score,
+            sortValue: (fruit: Fruit) => fruit.score,
+        },
     ];
 
     const keyFn = (key: Fruit) => {
@@ -47,7 +56,7 @@ function TablePage() {
 
     return (
         <div>
-            <Table data={data} config={config} keyFn={keyFn} />
+            <SortableTable data={data} config={config} keyFn={keyFn} />
         </div>
     );
 }
