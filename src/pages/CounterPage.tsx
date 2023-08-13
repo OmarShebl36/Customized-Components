@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import React, { ChangeEvent, FormEvent, useReducer } from 'react';
 import Button from '../components/Button';
 import Panel from '../components/Panel';
@@ -25,34 +26,26 @@ const reducer = (
     const { count } = state;
     switch (action.type) {
         case CountActionKind.INCREASE:
-            return {
-                ...state,
-                count: count + 1,
-            };
+            state.count = count + 1;
+            return;
         case CountActionKind.DECREASE:
-            return {
-                ...state,
-                count: count - 1,
-            };
+            state.count = count - 1;
+            return;
         case CountActionKind.ADD_VALUE_TO_COUNT:
-            return {
                 // we don't remove this line for letting the option of adding more states to the component
-                ...state,
-                count: count + state.valueToAdd,
-                valueToAdd: 0,
-            };
+                state.count = count + state.valueToAdd;
+                state.valueToAdd = 0;
+            return;
         case CountActionKind.SET_VALUE_TO_ADD:
-            return {
-                ...state,
-                valueToAdd: action.payload ?? 0,
-            };
+                state.valueToAdd = action.payload ?? 0;
+            return;
         default:
             return state;
     }
 };
 
 function CounterPage({ initialCount }: Props) {
-    const [state, dispatch] = useReducer(reducer, {
+    const [state, dispatch] = useReducer(produce(reducer), {
         count: initialCount,
         valueToAdd: 0,
     });
